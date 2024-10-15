@@ -1,0 +1,8 @@
+[package]
+name = "pic"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pocket-ic = "5.0.0"
+reqwest = "0.12.8"
