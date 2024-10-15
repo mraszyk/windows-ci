@@ -7,7 +7,13 @@ jobs:
   wsl:
     name: wsl
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: wsl-bash {0}
     steps:
       - uses: Vampire/setup-wsl@v3
-      #with:
-      #  distribution: Ubuntu-24.04
+        with:
+          distribution: Ubuntu-24.04
+      - run: |
+          wget https://github.com/dfinity/pocketic/releases/download/6.0.0/pocket-ic-x86_64-linux.gz
+          
