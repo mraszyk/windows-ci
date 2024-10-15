@@ -13,8 +13,7 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
-      - name: Setup Rust and Cargo
-        uses: moonrepo/setup-rust@v1.2.1
+      - run: rustup update
       - uses: Vampire/setup-wsl@v3
         #with:
         #  distribution: Ubuntu-24.04
