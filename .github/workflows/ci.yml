@@ -9,5 +9,5 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: Vampire/setup-wsl@v3
-      with:
-        distribution: Ubuntu-24.04
+      #with:
+      #  distribution: Ubuntu-24.04
