@@ -4,9 +4,10 @@ on:
   pull_request
 
 jobs:
-  Try_pull_image:
-    name: Try pull Image
+  wsl:
+    name: wsl
     runs-on: windows-latest
     steps:
-      - name: Image pull step
-        run: docker pull ubuntu
+      - uses: Vampire/setup-wsl@v3
+      with:
+        distribution: Ubuntu-24.04
