@@ -1,0 +1,11 @@
+name: Run linux based image
+on:
+  pull_request
+
+jobs:
+  Try_pull_image:
+    name: Try pull Image
+    runs-on: windows-latest
+    steps:
+      - name: Image pull step
+        run: docker pull ubuntu
