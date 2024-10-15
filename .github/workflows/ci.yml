@@ -6,7 +6,7 @@ on:
 jobs:
   wsl:
     name: wsl
-    runs-on: windows-latest
+    runs-on: windows-2022
     defaults:
       run:
         shell: wsl-bash {0}
