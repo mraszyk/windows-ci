@@ -15,6 +15,9 @@ jobs:
       - uses: Vampire/setup-wsl@v3
         #with:
         #  distribution: Ubuntu-24.04
+      - name: 'Enable networking'
+        run: |
+          netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=(wsl hostname -I)
       - shell: wsl-bash {0}
         run: |
           sudo apt update && sudo apt install -y wget
