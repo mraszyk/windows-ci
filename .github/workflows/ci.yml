@@ -27,11 +27,13 @@ jobs:
           gzip -d pocket-ic.gz
           chmod +x pocket-ic
           ./pocket-ic --port 8000 --ttl 2592000 &> log.txt &
+      - shell: wsl-bash {0}
+        run: |
+          curl -X GET -H "Content-Type: application/json" http://localhost:8000/instances
       - name: Setup Rust and Cargo
         uses: moonrepo/setup-rust@v1.2.1
       - run: |
           cargo test
       - shell: wsl-bash {0}
         run: |
-          echo "PocketIC server logs"
-          cat log.txt
+          curl -X GET -H "Content-Type: application/json" http://localhost:8000/instances
