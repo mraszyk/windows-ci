@@ -18,7 +18,7 @@ jobs:
           wsl.exe --install -d Debian
           Invoke-WebRequest https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz -OutFile pocket-ic.gz
           Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
-          $env:POCKET_IC_HOST=Invoke-Expression -Command "(wsl hostname -I)"
+          $env:POCKET_IC_HOST=Invoke-Expression -Command "wsl hostname -I"
           $env:POCKET_IC_PORT="8057"
           wsl hostname -I
           cargo test
