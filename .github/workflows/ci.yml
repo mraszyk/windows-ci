@@ -10,14 +10,14 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
-      - name: Setup Rust and Cargo
-        uses: moonrepo/setup-rust@v1.2.1
       - uses: Vampire/setup-wsl@v3
         #with:
         #  distribution: Ubuntu-24.04
       - name: 'Enable networking'
+        shell: powershell
         run: |
-          netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=(wsl hostname -I)
+          $wslip = ((wsl hostname -I) -split " ")[0]
+          netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=$wslip
       - shell: wsl-bash {0}
         run: |
           sudo apt update && sudo apt install -y wget
@@ -26,5 +26,7 @@ jobs:
           gzip -d pocket-ic.gz
           chmod +x pocket-ic
           ./pocket-ic --port 8000 --ttl 2592000 &
+      - name: Setup Rust and Cargo
+        uses: moonrepo/setup-rust@v1.2.1
       - run: |
           cargo test
