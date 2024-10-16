@@ -10,14 +10,12 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
-      - uses: Vampire/setup-wsl@v3
-        #with:
-        #  distribution: Ubuntu-24.04
       - name: Setup Rust and Cargo
         uses: moonrepo/setup-rust@v1.2.1
-      - name: 'Enable networking'
+      - name: 'Test PocketIC'
         shell: powershell
         run: |
+          wsl.exe --install -d Debian
           Invoke-WebRequest https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz -OutFile pocket-ic.gz
           Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
           $wslip = ((wsl hostname -I) -split " ")[0]
