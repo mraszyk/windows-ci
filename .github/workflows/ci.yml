@@ -11,6 +11,10 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v4
       - uses: Vampire/setup-wsl@v3
+        with:
+          wsl-conf: |
+            [wsl2]
+            vmIdleTimeout=-1
         #with:
         #  distribution: Ubuntu-24.04
       - name: 'Enable networking'
@@ -19,6 +23,7 @@ jobs:
           $wslip = ((wsl hostname -I) -split " ")[0]
           echo $wslip
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8057 connectaddress=$wslip
+          wsl.exe --shutdown
       - shell: wsl-bash {0}
         run: |
           sudo apt update && sudo apt install -y wget curl
