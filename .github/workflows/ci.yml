@@ -27,5 +27,4 @@ jobs:
           $wslip = ((wsl hostname -I) -split " ")[0]
           echo $wslip
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8057 connectaddress=$wslip
-          sleep 5
           cargo test
