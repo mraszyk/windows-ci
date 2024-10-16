@@ -22,6 +22,6 @@ jobs:
           wget https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz
           gzip -d pocket-ic.gz
           chmod +x pocket-ic
-          ./pocket-ic --port 8000 &
+          ./pocket-ic --port 8000 --ttl 2592000 &
       - run: |
           cargo test
