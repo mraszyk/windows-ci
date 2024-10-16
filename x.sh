@@ -4,7 +4,7 @@ wget https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb59
 gzip -d pocket-ic.gz
 chmod +x pocket-ic
 export RUST_LOG=debug
-sudo ./pocket-ic --port 8057 --ttl 2592000 &> log.txt &
+sudo ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000 &> log.txt &
 sleep 10
 cat log.txt
 curl -X GET -H "Content-Type: application/json" http://localhost:8057/status
