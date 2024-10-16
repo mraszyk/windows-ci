@@ -17,6 +17,7 @@ jobs:
         shell: powershell
         run: |
           $wslip = ((wsl hostname -I) -split " ")[0]
+          echo $wslip
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=$wslip
       - shell: wsl-bash {0}
         run: |
