@@ -20,4 +20,5 @@ jobs:
           Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
           $wslip = ((wsl hostname -I) -split " ")[0]
           $env:POCKET_IC_URL = "http://$wslip:8057"
+          echo $env:POCKET_IC_URL
           cargo test
