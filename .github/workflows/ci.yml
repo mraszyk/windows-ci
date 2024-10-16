@@ -12,19 +12,12 @@ jobs:
         uses: actions/checkout@v4
       - name: 'Setup Rust and Cargo'
         uses: moonrepo/setup-rust@v1.2.1
-      - name: 'Config'
-        shell: cmd
-        run: |
-          echo "[wsl2]" > %UserProfile%\.wslconfig
-          echo "localhostForwarding=true" >> %UserProfile%\.wslconfig
       - name: 'Test PocketIC'
         shell: pwsh
         run: |
-          Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
-          wsl.exe --shutdown
           wsl.exe --install -d Ubuntu
           Invoke-WebRequest https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz -OutFile pocket-ic.gz
-          Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
-          Set-Content -Path host.txt -Value "127.0.0.1" -NoNewLine
+          Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr [::] --port 8057 --ttl 2592000"
+          Set-Content -Path host.txt -Value "[::1]" -NoNewLine
           Set-Content -Path port.txt -Value "8057" -NoNewLine
           cargo test
