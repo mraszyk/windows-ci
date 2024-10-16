@@ -19,8 +19,8 @@ jobs:
         run: |
           sudo apt update && sudo apt install -y wget
           wget https://github.com/dfinity/pocketic/releases/download/6.0.0/pocket-ic-x86_64-linux.gz
-          gzip -d pocket-ic-x86_64-linux.gz
-          mv pocket-ic-x86_64-linux pocket-ic
+          wget https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz
+          gzip -d pocket-ic.gz
           chmod +x pocket-ic
           ./pocket-ic --port 8000 &
       - run: |
