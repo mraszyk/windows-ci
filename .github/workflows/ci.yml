@@ -18,6 +18,6 @@ jobs:
           wsl.exe --install -d Debian
           Invoke-WebRequest https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz -OutFile pocket-ic.gz
           Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
-          Set-Content -Path host.txt -Value ((wsl hostname -I) -split " ")[0] -NoNewLine
+          Set-Content -Path host.txt -Value "127.0.0.1" -NoNewLine
           Set-Content -Path port.txt -Value "8057" -NoNewLine
           cargo test
