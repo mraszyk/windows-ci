@@ -26,7 +26,7 @@ jobs:
           echo $wslip
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8057 connectaddress=$wslip
           wsl.exe --shutdown
-          wsl.exe run 'bash ./x.sh' &
+          Start-Process -NoNewWindow wsl.exe run 'bash ./x.sh'
           Start-Sleep -Seconds 5
           get-content log.txt
           cargo test
