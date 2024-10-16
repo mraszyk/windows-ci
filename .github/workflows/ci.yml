@@ -22,10 +22,10 @@ jobs:
       - name: 'Enable networking'
         shell: powershell
         run: |
+          wsl.exe --shutdown
+          Start-Process wsl.exe -ArgumentList run ./x.sh
           $wslip = ((wsl hostname -I) -split " ")[0]
           echo $wslip
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8057 connectaddress=$wslip
-          wsl.exe --shutdown
-          start wsl.exe run ./x.sh
           sleep 5
           cargo test
