@@ -26,10 +26,10 @@ jobs:
           wget https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz
           gzip -d pocket-ic.gz
           chmod +x pocket-ic
-          sudo ./pocket-ic --port 8000 --ttl 2592000 &> log.txt &
+          sudo ./pocket-ic --port 8057 --ttl 2592000 &> log.txt &
           sleep 10
           cat log.txt
-          curl -X GET -H "Content-Type: application/json" http://localhost:8000/status
+          curl -X GET -H "Content-Type: application/json" http://localhost:8057/status
           cat log.txt
       - shell: wsl-bash {0}
         run: |
