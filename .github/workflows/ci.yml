@@ -15,11 +15,12 @@ jobs:
       - name: 'Config'
         shell: cmd
         run: |
-          echo "[wsl2]" >> %UserProfile%\.wslconfig
+          echo "[wsl2]" > %UserProfile%\.wslconfig
           echo "localhostForwarding=true" >> %UserProfile%\.wslconfig
       - name: 'Test PocketIC'
         shell: pwsh
         run: |
+          Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
           wsl.exe --shutdown
           wsl.exe --install -d Ubuntu
           Invoke-WebRequest https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz -OutFile pocket-ic.gz
