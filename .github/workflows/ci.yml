@@ -23,7 +23,7 @@ jobs:
         shell: powershell
         run: |
           wsl.exe --shutdown
-          Start-Process wsl.exe -ArgumentList run ./x.sh
+          Start-Process -NoNewWindow wsl.exe -ArgumentList "bash -c '$(cat x.sh)'"
           $wslip = ((wsl hostname -I) -split " ")[0]
           echo $wslip
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8057 connectaddress=$wslip
