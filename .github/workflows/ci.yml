@@ -21,7 +21,7 @@ jobs:
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=$wslip
       - shell: wsl-bash {0}
         run: |
-          sudo apt update && sudo apt install -y wget
+          sudo apt update && sudo apt install -y wget curl
           wget https://github.com/dfinity/pocketic/releases/download/6.0.0/pocket-ic-x86_64-linux.gz
           wget https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz
           gzip -d pocket-ic.gz
