@@ -8,7 +8,7 @@ fn test() {
     use std::str::FromStr;
     let _ = std::panic::catch_unwind(|| {
         let pic = PocketIcBuilder::new()
-            .with_server_url(reqwest::Url::from_str("http://localhost:8000").unwrap())
+            .with_server_url(reqwest::Url::from_str("http://localhost:8057").unwrap())
             .with_nns_subnet()
             .build();
     });

@@ -18,7 +18,7 @@ jobs:
         run: |
           $wslip = ((wsl hostname -I) -split " ")[0]
           echo $wslip
-          netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=$wslip
+          netsh interface portproxy add v4tov4 listenport=8057 listenaddress=0.0.0.0 connectport=8057 connectaddress=$wslip
       - shell: wsl-bash {0}
         run: |
           sudo apt update && sudo apt install -y wget curl
@@ -33,11 +33,11 @@ jobs:
           cat log.txt
       - shell: wsl-bash {0}
         run: |
-          curl -X GET -H "Content-Type: application/json" http://localhost:8000/status
+          curl -X GET -H "Content-Type: application/json" http://localhost:8057/status
       - name: Setup Rust and Cargo
         uses: moonrepo/setup-rust@v1.2.1
       - run: |
           cargo test
       - shell: wsl-bash {0}
         run: |
-          curl -X GET -H "Content-Type: application/json" http://localhost:8000/status
+          curl -X GET -H "Content-Type: application/json" http://localhost:8057/status
