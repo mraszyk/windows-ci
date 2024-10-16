@@ -20,4 +20,5 @@ jobs:
           Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
           $env:POCKET_IC_HOST=Invoke-Expression -Command "(wsl hostname -I)"
           $env:POCKET_IC_PORT="8057"
+          wsl hostname -I
           cargo test
