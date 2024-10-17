@@ -17,7 +17,7 @@ jobs:
         run: |
           wsl.exe --install -d Ubuntu
           Invoke-WebRequest https://download.dfinity.systems/ic/4bd8e1d8430ee17c7e3be47732d1786074ecb592/binaries/x86_64-linux/pocket-ic.gz -OutFile pocket-ic.gz
-          Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr [::] --port 8057 --ttl 2592000"
+          Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
           $wslip = ((wsl hostname -I) -split " ")[0]
           netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8057 connectaddress=$wslip
           cargo test
