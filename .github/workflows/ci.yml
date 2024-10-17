@@ -1,11 +1,30 @@
-name: Run linux based image
+name: PocketIC test on Windows
+
 on:
   pull_request
 
 jobs:
-  Try_pull_image:
-    name: Try pull Image
+  pocket_ic_test_windows:
+    name: "PocketIC test on Windows"
     runs-on: windows-latest
     steps:
-      - name: Image pull step
-        run: docker pull ubuntu
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+      - name: 'Setup WSL'
+        uses: Vampire/setup-wsl@v3
+      - shell: wsl-bash {0}
+        run: |
+          sudo apt update && sudo apt install -y ca-certificates
+      - name: 'Test PocketIC'
+        run: |
+          git clone https://github.com/dfinity/ic
+          cd ic
+          git checkout mraszyk/pic-test-windows
+          cargo build --release --locked -p pocket-ic-test-canister --target wasm32-unknown-unknown
+          Invoke-WebRequest https://github.com/dfinity/ic-wasm/releases/download/0.9.0/ic-wasm-linux64 -OutFile ic-wasm
+          wsl.exe bash -c "chmod +x ic-wasm && cp target/wasm32-unknown-unknown/release/pocket-ic-test-canister.wasm . && ./ic-wasm pocket-ic-test-canister.wasm -o pocket-ic-test-canister.wasm shrink"
+          Invoke-WebRequest https://download.dfinity.systems/ic/da31b49090c431189467e176c4c560582691be59/binaries/x86_64-linux/pocket-ic.gz -OutFile pocket-ic.gz
+          Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
+          $env:POCKET_IC_URL="http://localhost:8057"
+          $env:TEST_WASM="D:\a\windows-ci\windows-ci\ic\pocket-ic-test-canister.wasm"
+          cargo test -p pocket-ic -- --test-threads 2

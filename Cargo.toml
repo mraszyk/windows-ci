@@ -1,0 +1,8 @@
+[package]
+name = "pic"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pocket-ic = { git = "https://github.com/dfinity/ic", rev = "4bd8e1d8430ee17c7e3be47732d1786074ecb592" }
+reqwest = "0.12.8"
