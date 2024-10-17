@@ -27,4 +27,4 @@ jobs:
           Start-Process -NoNewWindow wsl.exe -ArgumentList "gzip -d pocket-ic.gz && chmod +x pocket-ic && ./pocket-ic --ip-addr 0.0.0.0 --port 8057 --ttl 2592000"
           $env:POCKET_IC_URL="http://localhost:8057"
           $env:TEST_WASM="D:\a\windows-ci\windows-ci\ic\pocket-ic-test-canister.wasm"
-          cargo test -p pocket-ic
+          cargo test -p pocket-ic -- --test-threads 2
